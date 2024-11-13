@@ -11,6 +11,47 @@ namespace CustomItems.Registry
     {
         public static readonly Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
 
+
+        public static Sprite ScaleSprite(string sprite, int scale) 
+        {
+            return ScaleSprite(sprites[sprite], scale);
+        }
+        public static Sprite ScaleSprite(Sprite sprite, int scale)
+        {
+            var texture = sprite.texture;
+            int newWidth = texture.width * scale;
+            int newHeight = texture.height * scale;
+
+            Texture2D newTexture = new Texture2D(texture.width * scale, texture.height * scale);
+            
+            for (int y = 0; y < texture.height; y++)
+            {
+                for (int x = 0; x < texture.width; x++)
+                {
+                    Color originalPixel = texture.GetPixel(x, y);
+
+                    for (int sy = 0; sy < scale; sy++)
+                    {
+                        for (int sx = 0; sx < scale; sx++)
+                        {
+                            newTexture.SetPixel(x * scale + sx, y * scale + sy, originalPixel);
+                        }
+                    }
+                }
+            }
+
+            newTexture.Apply();
+
+            Rect newRect = new Rect(0, 0, newWidth, newHeight);
+
+            return Sprite.Create(
+                newTexture,
+                newRect,
+                new Vector2(0.5f, 0.5f),
+                sprite.pixelsPerUnit
+            );
+        }
+
         public static void Load() 
         {
             Debug.Log("Init sprites");

@@ -1,11 +1,14 @@
-﻿using System;
+﻿using CustomItems.Registry;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CustomItems.Implementations
 {
     internal class GlassShield : BaseCustomItem
     {
         private static bool active = false;
+        private static readonly Sprite scaledSprite = SpriteRegistry.ScaleSprite("Glass Shield", 4);
 
         public override void TriggerEffect(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem)
         {
@@ -18,7 +21,7 @@ namespace CustomItems.Implementations
                     BattleTurn.ENEMY,
                     damageDealt, 
                     DamageSource.NORMAL, 
-                    this.GetSprite(), 
+                    scaledSprite, 
                     this
                 )
             );
