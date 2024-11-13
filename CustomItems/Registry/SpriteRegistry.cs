@@ -4,25 +4,77 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CustomItems.Registry
 {
     public class SpriteRegistry
     {
         public static readonly Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
+        public static readonly Color background = new Color(37f / 255f, 19f / 255f, 26f / 255f, 0);
 
-
-        public static Sprite ScaleSprite(string sprite, int scale) 
+        #region Color
+        public static Sprite AddColor(string sprite, int add_r, int add_g, int add_b)
         {
-            return ScaleSprite(sprites[sprite], scale);
+            return AddColor(sprites[sprite], add_r, add_g, add_b);
         }
-        public static Sprite ScaleSprite(Sprite sprite, int scale)
+
+        public static Sprite AddColor(Sprite sprite, int add_r, int add_g, int add_b)
+        {
+            var texture = sprite.texture;
+
+            float red = add_r / 255f;
+            float green = add_g / 255f;
+            float blue = add_b / 255f;
+
+            Texture2D newTexture = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
+            newTexture.filterMode = FilterMode.Point;
+            newTexture.wrapMode = TextureWrapMode.Clamp;
+
+            for (int y = 0; y < texture.height; y++)
+            {
+                for (int x = 0; x < texture.width; x++)
+                {
+
+                    Color pixel = texture.GetPixel(x, y);
+                    if (IsBackground(pixel))
+                    {
+                        newTexture.SetPixel(x, y, background);
+                        continue;
+                    }
+                    
+                    var replaceRed = Mathf.Clamp(pixel.r + red, 0f, 1f);
+                    var replaceGreen = Mathf.Clamp(pixel.g + green, 0f, 1f);
+                    var replaceBlue = Mathf.Clamp(pixel.b + blue, 0f, 1f);
+
+                    newTexture.SetPixel(x, y, new Color(replaceRed, replaceGreen, replaceBlue));
+                }
+            }
+
+            newTexture.Apply();
+
+            return Sprite.Create(
+                newTexture,
+                sprite.textureRect,
+                new Vector2(0.5f, 0.5f),
+                sprite.pixelsPerUnit
+            );
+        }
+
+        #endregion
+
+        #region Scaling
+        public static Sprite Scale(string sprite, int scale) 
+        {
+            return Scale(sprites[sprite], scale);
+        }
+        public static Sprite Scale(Sprite sprite, int scale)
         {
             var texture = sprite.texture;
             int newWidth = texture.width * scale;
             int newHeight = texture.height * scale;
 
-            Texture2D newTexture = new Texture2D(texture.width * scale, texture.height * scale);
+            Texture2D newTexture = new Texture2D(newWidth, newHeight);
             
             for (int y = 0; y < texture.height; y++)
             {
@@ -51,7 +103,14 @@ namespace CustomItems.Registry
                 sprite.pixelsPerUnit
             );
         }
+        #endregion
 
+        public static bool IsBackground(Color color) =>
+            Mathf.Approximately(color.r, background.r) &&
+            Mathf.Approximately(color.g, background.g) &&
+            Mathf.Approximately(color.b, background.b);
+
+        #region Loading data
         public static void Load() 
         {
             Debug.Log("Init sprites");
@@ -111,6 +170,7 @@ namespace CustomItems.Registry
             string result = stringList[stringList.Length - 2];
             return result;
         }
+        #endregion
 
         #region yoink images as an example, unused but staying here rent free
         public static void Dump(InventoryItem item) 

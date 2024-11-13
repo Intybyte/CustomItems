@@ -8,7 +8,7 @@ namespace CustomItems.Implementations
     internal class GlassShield : BaseCustomItem
     {
         private static bool active = false;
-        private static readonly Sprite scaledSprite = SpriteRegistry.ScaleSprite("Glass Shield", 4);
+        private static readonly Sprite scaledSprite = SpriteRegistry.Scale("Glass Shield", 4);
 
         public override void TriggerEffect(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem)
         {

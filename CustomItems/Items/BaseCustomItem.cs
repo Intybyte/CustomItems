@@ -19,25 +19,35 @@ namespace CustomItems
 
         public BaseCustomItem Sprite(string normal, string golden = null, string diamond = null)
         {
-            if (golden == null) golden = normal;
-            if (diamond == null) diamond = normal;
-
             this.sprite = SpriteRegistry.sprites[normal];
-            this.goldenSprite = SpriteRegistry.sprites[golden];
-            this.diamondSprite = SpriteRegistry.sprites[diamond];
+
+            this.goldenSprite = golden == null ? this.sprite : SpriteRegistry.sprites[golden];
+
+            this.diamondSprite = diamond == null ? this.sprite : SpriteRegistry.sprites[diamond];
 
             return this;
         }
 
         public BaseCustomItem Sprite(Sprite normal, Sprite golden = null, Sprite diamond = null)
         {
-            if (golden == null) golden = normal;
-            if (diamond == null) diamond = normal;
-
             this.sprite = normal;
-            this.goldenSprite = golden;
-            this.diamondSprite = diamond;
 
+            this.goldenSprite = golden == null ? this.sprite : golden;
+
+            this.diamondSprite = diamond == null ? this.sprite : diamond;
+
+            return this;
+        }
+
+        public BaseCustomItem GoldTint(int r, int g, int b)
+        {
+            this.goldenSprite = SpriteRegistry.AddColor(this.goldenSprite, r, g, b);
+            return this;
+        }
+
+        public BaseCustomItem DiamondTint(int r, int g, int b)
+        {
+            this.diamondSprite = SpriteRegistry.AddColor(this.diamondSprite, r, g, b);
             return this;
         }
 
@@ -62,6 +72,18 @@ namespace CustomItems
             return this;
         }
         public void Register() {
+            if (!CustomItemRegistry.enabled.ContainsKey(nameTag))
+            {
+                // assume enabled
+                CustomItemRegistry.addedItems[nameTag] = this;
+                return;
+            }
+
+            if (!CustomItemRegistry.enabled[nameTag])
+            {
+                return;
+            }
+
             CustomItemRegistry.addedItems[nameTag] = this;
         }
     }
