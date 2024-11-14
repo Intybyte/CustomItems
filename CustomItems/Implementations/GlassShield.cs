@@ -1,14 +1,11 @@
-﻿using CustomItems.Registry;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace CustomItems.Implementations
 {
     internal class GlassShield : BaseCustomItem
     {
         private static bool active = false;
-        private static readonly Sprite scaledSprite = SpriteRegistry.Scale("Glass Shield", 4);
 
         public override void TriggerEffect(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem)
         {
@@ -21,7 +18,7 @@ namespace CustomItems.Implementations
                     BattleTurn.ENEMY,
                     damageDealt, 
                     DamageSource.NORMAL, 
-                    scaledSprite, 
+                    GetSprite(),
                     this
                 )
             );
@@ -50,6 +47,11 @@ namespace CustomItems.Implementations
             this.attack = 1;
             this.armor = 2;
             itemRarity = ItemRarity.GOLDEN;
+        }
+
+        public override void SetDiamondItem(InventoryItem item)
+        {
+            base.SetDiamondItem(item);
         }
     }
 }

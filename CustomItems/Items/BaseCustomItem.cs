@@ -41,13 +41,13 @@ namespace CustomItems
 
         public BaseCustomItem GoldTint(int r, int g, int b)
         {
-            this.goldenSprite = SpriteRegistry.AddColor(this.goldenSprite, r, g, b);
+            this.goldenSprite = this.goldenSprite.AddColor(r, g, b);
             return this;
         }
 
         public BaseCustomItem DiamondTint(int r, int g, int b)
         {
-            this.diamondSprite = SpriteRegistry.AddColor(this.diamondSprite, r, g, b);
+            this.diamondSprite = this.diamondSprite.AddColor(r, g, b);
             return this;
         }
 
