@@ -11,7 +11,6 @@ namespace CustomItems
         public void Awake()
         {
             SpriteRegistry.Load();
-            CustomItemRegistry.Init();
 
             Harmony harmony = new Harmony("me.vaan.customitemplugin");
             harmony.PatchAll();

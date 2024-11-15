@@ -16,6 +16,7 @@ namespace CustomItems
         {
             Debug.Log("Init start");
             itemManager = __instance;
+            CustomItemRegistry.Init();
 
             var items = GetItems();
             items.AddRange(CustomItemRegistry.addedItems.Values);

@@ -11,7 +11,7 @@ namespace CustomItems
     {
         public static readonly Dictionary<string, BaseCustomItem> addedItems = new Dictionary<string, BaseCustomItem>();
         public static Dictionary<string, bool> enabledItems = ReadConfigs();
-        public static event Action onCustomItemRegistryInit;
+        public static event Action OnCustomItemRegistryInit;
 
         public static void Init()
         {
@@ -22,6 +22,7 @@ namespace CustomItems
                 .Tags(ItemTag.STONE)
                 .Sprite("Glass Shield")
                 .GoldTint(0, -32, -86)
+                .DiamondTint(-86, -86, 0)
                 .Register();
 
             ScriptableObject.CreateInstance<GoldSword>()
@@ -32,8 +33,7 @@ namespace CustomItems
                 .Sprite("Golden Sword")
                 .Register();
 
-            onCustomItemRegistryInit?.Invoke();
-
+            OnCustomItemRegistryInit?.Invoke();
         }
 
         public static Dictionary<string, bool> ReadConfigs()
