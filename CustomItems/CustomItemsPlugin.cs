@@ -1,7 +1,5 @@
 ﻿using BepInEx;
-using CustomItems.Implementations;
 using HarmonyLib;
-using UnityEngine;
 using CustomItems.Registry;
 
 namespace CustomItems

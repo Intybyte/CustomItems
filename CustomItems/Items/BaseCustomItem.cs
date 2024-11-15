@@ -71,15 +71,15 @@ namespace CustomItems
             this.effectDesc = desc;
             return this;
         }
-        public void Register() {
-            if (!CustomItemRegistry.enabled.ContainsKey(nameTag))
+        public void Register() { 
+            if (!CustomItemRegistry.enabledItems.ContainsKey(nameTag))
             {
                 // assume enabled
                 CustomItemRegistry.addedItems[nameTag] = this;
                 return;
             }
 
-            if (!CustomItemRegistry.enabled[nameTag])
+            if (!CustomItemRegistry.enabledItems[nameTag])
             {
                 return;
             }

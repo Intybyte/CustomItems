@@ -1,27 +1,39 @@
 ﻿using BepInEx;
 using CustomItems.Implementations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace CustomItems
 {
-    public class CustomItemRegistry
+    public sealed class CustomItemRegistry
     {
         public static readonly Dictionary<string, BaseCustomItem> addedItems = new Dictionary<string, BaseCustomItem>();
-        public static readonly Dictionary<string, bool> enabled = ReadConfigs();
+        public static Dictionary<string, bool> enabledItems = ReadConfigs();
+        public static event Action onCustomItemRegistryInit;
 
         public static void Init()
         {
 
-            var a = ScriptableObject.CreateInstance<GlassShield>()
+            ScriptableObject.CreateInstance<GlassShield>()
                 .Identify("glass_shield", "Glass Shield", "When hit deal the same damage to your enemy. Works only on first turn.")
                 .Define(ContentBundle.WOODLAND, ItemRarity.COMMON, ItemType.INVENTORY)
                 .Tags(ItemTag.STONE)
                 .Sprite("Glass Shield")
-                .GoldTint(0, 0, -86);
+                .GoldTint(0, -32, -86)
+                .Register();
 
-            a.Register();
+            ScriptableObject.CreateInstance<GoldSword>()
+                .Identify("gold_sword", "Gold Sword", "Deals 1 damage for each 10 gold owned.")
+                .Define(ContentBundle.WOODLAND, ItemRarity.HEROIC, ItemType.WEAPON)
+                .Tags(ItemTag.UNIQUE)
+                .Stats(0, 1)
+                .Sprite("Golden Sword")
+                .Register();
+
+            onCustomItemRegistryInit?.Invoke();
+
         }
 
         public static Dictionary<string, bool> ReadConfigs()
@@ -61,7 +73,6 @@ namespace CustomItems
 
         public static void SaveConfigs()
         {
-            Dictionary<string, bool> toWrite = enabled;
             string config = Path.Combine(Paths.ConfigPath, "CustomItems_EnabledItems.cfg");
 
             using (StreamWriter writer = new StreamWriter(config, append: false))
@@ -69,7 +80,7 @@ namespace CustomItems
                 foreach(BaseCustomItem item in addedItems.Values) 
                 {
                     string key = item.nameTag;
-                    bool value = enabled.ContainsKey(key) ? enabled[key] : true;
+                    bool value = enabledItems.ContainsKey(key) ? enabledItems[key] : true;
                     writer.WriteLine($"{key}={value}");             
                 }
             }
