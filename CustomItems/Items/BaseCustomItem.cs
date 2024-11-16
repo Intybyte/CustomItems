@@ -21,20 +21,34 @@ namespace CustomItems
         {
             this.sprite = SpriteRegistry.sprites[normal];
 
-            this.goldenSprite = golden == null ? this.sprite : SpriteRegistry.sprites[golden];
+            this.goldenSprite = golden == null ? null : SpriteRegistry.sprites[golden];
 
-            this.diamondSprite = diamond == null ? this.sprite : SpriteRegistry.sprites[diamond];
+            this.diamondSprite = diamond == null ? null : SpriteRegistry.sprites[diamond];
 
-            return this;
+            return Sprite(this.sprite, this.goldenSprite, this.diamondSprite);
         }
 
         public BaseCustomItem Sprite(Sprite normal, Sprite golden = null, Sprite diamond = null)
         {
             this.sprite = normal;
 
-            this.goldenSprite = golden == null ? this.sprite : golden;
+            if (golden == null)
+            {
+                this.goldenSprite = this.sprite.SetColor(203, 130, 25);
+            }
+            else
+            {
+                this.goldenSprite = golden;
+            }
 
-            this.diamondSprite = diamond == null ? this.sprite : diamond;
+            if (diamond == null)
+            {
+                this.diamondSprite = this.sprite.SetColor(146, 226, 235);
+            }
+            else
+            {
+                this.diamondSprite = diamond;
+            }
 
             return this;
         }

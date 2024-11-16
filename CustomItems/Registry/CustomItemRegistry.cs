@@ -21,8 +21,6 @@ namespace CustomItems
                 .Define(ContentBundle.WOODLAND, ItemRarity.COMMON, ItemType.INVENTORY)
                 .Tags(ItemTag.STONE)
                 .Sprite("Glass Shield")
-                .GoldTint(0, -32, -86)
-                .DiamondTint(-86, -86, 0)
                 .Register();
 
             ScriptableObject.CreateInstance<GoldSword>()
