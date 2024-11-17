@@ -14,7 +14,8 @@ namespace CustomItems
             return SpriteRegistry.sprites[sprite].SetColor(add_r, add_g, add_b);
         }
 
-        public static Sprite SetColor(this Sprite sprite, int set_r, int set_g, int set_b) {
+        public static Sprite SetColor(this Sprite sprite, int set_r, int set_g, int set_b) 
+        {
             var texture = sprite.texture;
 
             float red = set_r / 255f;
