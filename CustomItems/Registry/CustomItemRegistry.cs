@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using CustomItems.Implementations;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,10 @@ namespace CustomItems
     {
         public static readonly Dictionary<string, BaseCustomItem> addedItems = new Dictionary<string, BaseCustomItem>();
         public static Dictionary<string, bool> enabledItems = ReadConfigs();
+
+        public static Dictionary<string, InventoryItem> existingItems = new Dictionary<string, InventoryItem>();
         public static event Action OnCustomItemRegistryInit;
+
 
         public static void Init()
         {

@@ -19,6 +19,30 @@ namespace CustomItems
             CustomItemRegistry.Init();
 
             var items = GetItems();
+            foreach (InventoryItem item in items) 
+            {
+                /* no way in hell am saving them as item_543 that is useless
+                   if some devs ends up reading this PLEASE, consider using an hashmap
+                   for storing the data, also consider using a namespace like
+                   
+                   base:effect_type:name
+                   
+                   so:
+
+                   base:item:hero_shield
+                   base:oil:attack
+                   base:edge:agile
+
+                   for now string -> InventoryItem is good enough
+                 */
+                var savedKey = item.effectName.Replace(' ', '_').ToLower();
+                if(CustomItemRegistry.existingItems.ContainsKey(savedKey))
+                {
+                    Debug.LogError($"KEY COLLISION FOR {savedKey}: {item.nameTag} - {CustomItemRegistry.existingItems[savedKey].nameTag}");
+                }
+                CustomItemRegistry.existingItems[savedKey] = item;
+                //Debug.Log($"Read tag {item.nameTag} : Display {item.effectName} : Saved as {savedKey}");
+            }
             items.AddRange(CustomItemRegistry.addedItems.Values);
             SetItems(items);
         }

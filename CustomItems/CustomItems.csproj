@@ -62,6 +62,7 @@
     <Compile Include="Implementations\GlassShield.cs" />
     <Compile Include="Implementations\GoldSword.cs" />
     <Compile Include="Items\BaseCustomItem.cs" />
+    <Compile Include="Items\BaseCustomSet.cs" />
     <Compile Include="Registry\CustomItemRegistry.cs" />
     <Compile Include="CustomItemsPlugin.cs" />
     <Compile Include="Patches\ItemManagerPatch.cs" />
