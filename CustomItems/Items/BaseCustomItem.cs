@@ -86,19 +86,19 @@ namespace CustomItems
             return this;
         }
         public void Register() { 
-            if (!CustomItemRegistry.enabledItems.ContainsKey(nameTag))
+            if (!ItemRegistry.enabledItems.ContainsKey(nameTag))
             {
                 // assume enabled
-                CustomItemRegistry.addedItems[nameTag] = this;
+                ItemRegistry.addedItems[nameTag] = this;
                 return;
             }
 
-            if (!CustomItemRegistry.enabledItems[nameTag])
+            if (!ItemRegistry.enabledItems[nameTag])
             {
                 return;
             }
 
-            CustomItemRegistry.addedItems[nameTag] = this;
+            ItemRegistry.addedItems[nameTag] = this;
         }
     }
 }

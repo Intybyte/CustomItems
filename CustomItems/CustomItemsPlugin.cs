@@ -18,7 +18,7 @@ namespace CustomItems
 
         public void OnDisable()
         {
-            CustomItemRegistry.SaveConfigs();
+            ItemRegistry.SaveConfigs();
         }
     }
 }
