@@ -5,18 +5,72 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace CustomItems
+namespace CustomItems.Registry
 {
     public sealed class ItemRegistry
     {
-        public static readonly Dictionary<string, BaseCustomItem> addedItems = new Dictionary<string, BaseCustomItem>();
-        public static Dictionary<string, bool> enabledItems = ReadConfigs();
+        private ItemRegistry() { }
+        private static ItemRegistry _instance = null;
 
-        public static Dictionary<string, InventoryItem> existingItems = new Dictionary<string, InventoryItem>();
-        public static event Action OnCustomItemRegistryInit;
+        public readonly Dictionary<string, BaseCustomItem> addedItems = new Dictionary<string, BaseCustomItem>();
+        private readonly Dictionary<string, bool> enabledItems = ReadConfigs();
+        public readonly Dictionary<string, InventoryItem> existingItems = new Dictionary<string, InventoryItem>();
+        
+        public event Action OnCustomItemRegistryInit;
 
+        public static ItemRegistry Instance
+        {
+            get
+            {
+                if (_instance != null)
+                {
+                    return _instance;
+                }
 
-        public static void Init()
+                _instance = new ItemRegistry();
+                return _instance;
+            }
+        }
+
+        public InventoryItem this[string index, bool added = true]
+        {
+            get
+            {
+                if (added) 
+                {
+                    return addedItems[index];
+                }
+                else
+                {
+                    return existingItems[index];
+                }
+            }
+
+            set
+            {
+                if (added)
+                {
+                    addedItems[index] = value as BaseCustomItem;
+                }
+                else
+                {
+                    existingItems[index] = value;
+                }
+            }
+        }
+
+        public bool IsEnabled(string index)
+        {
+            if (!enabledItems.ContainsKey(index))
+            {
+                // assume enabled
+                return true;
+            }
+
+            return enabledItems[index];
+        }
+
+        public void Init()
         {
 
             ScriptableObject.CreateInstance<GlassShield>()
@@ -75,14 +129,14 @@ namespace CustomItems
         public static void SaveConfigs()
         {
             string config = Path.Combine(Paths.ConfigPath, "CustomItems_EnabledItems.cfg");
-
+            var instance = ItemRegistry.Instance;
             using (StreamWriter writer = new StreamWriter(config, append: false))
             {
-                foreach(BaseCustomItem item in addedItems.Values) 
+                foreach(BaseCustomItem item in instance.addedItems.Values) 
                 {
                     string key = item.nameTag;
-                    bool value = enabledItems.ContainsKey(key) ? enabledItems[key] : true;
-                    writer.WriteLine($"{key}={value}");             
+                    bool value = instance.IsEnabled(key);
+                    writer.WriteLine($"{key}={value}");
                 }
             }
         }

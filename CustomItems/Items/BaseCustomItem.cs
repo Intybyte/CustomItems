@@ -85,20 +85,12 @@ namespace CustomItems
             this.effectDesc = desc;
             return this;
         }
-        public void Register() { 
-            if (!ItemRegistry.enabledItems.ContainsKey(nameTag))
+        public void Register() {
+            var registry = ItemRegistry.Instance;
+            if (registry.IsEnabled(nameTag))
             {
-                // assume enabled
-                ItemRegistry.addedItems[nameTag] = this;
-                return;
+                registry[nameTag] = this;
             }
-
-            if (!ItemRegistry.enabledItems[nameTag])
-            {
-                return;
-            }
-
-            ItemRegistry.addedItems[nameTag] = this;
         }
     }
 }

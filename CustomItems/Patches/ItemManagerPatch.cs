@@ -16,7 +16,8 @@ namespace CustomItems
         {
             Debug.Log("Init start");
             itemManager = __instance;
-            ItemRegistry.Init();
+            var registry = ItemRegistry.Instance;
+            registry.Init();
 
             var items = GetItems();
             foreach (InventoryItem item in items) 
@@ -36,14 +37,14 @@ namespace CustomItems
                    for my use case string -> InventoryItem is good enough
                  */
                 var savedKey = item.effectName.Replace(' ', '_').ToLower();
-                if(ItemRegistry.existingItems.ContainsKey(savedKey))
+                if(registry.existingItems.ContainsKey(savedKey))
                 {
-                    Debug.LogError($"KEY COLLISION FOR {savedKey}: {item.nameTag} - {ItemRegistry.existingItems[savedKey].nameTag}");
+                    Debug.LogError($"KEY COLLISION FOR {savedKey}: {item.nameTag} - {registry.existingItems[savedKey].nameTag}");
                 }
-                ItemRegistry.existingItems[savedKey] = item;
+                registry.existingItems[savedKey] = item;
                 //Debug.Log($"Read tag {item.nameTag} : Display {item.effectName} : Saved as {savedKey}");
             }
-            items.AddRange(ItemRegistry.addedItems.Values);
+            items.AddRange(registry.addedItems.Values);
             SetItems(items);
         }
 
