@@ -63,6 +63,7 @@
     <Compile Include="Implementations\GoldSword.cs" />
     <Compile Include="Items\BaseCustomItem.cs" />
     <Compile Include="Items\BaseCustomSet.cs" />
+    <Compile Include="Items\EffectBuilder.cs" />
     <Compile Include="Registry\ItemRegistry.cs" />
     <Compile Include="CustomItemsPlugin.cs" />
     <Compile Include="Patches\ItemManagerPatch.cs" />

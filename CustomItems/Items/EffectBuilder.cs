@@ -1,23 +1,33 @@
 ﻿using CustomItems.Registry;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace CustomItems.Items
 {
-    public class BaseCustomItem : InventoryItem
+    internal class EffectBuilder
     {
+        private int maxHealth = 0, attack = 0, armor = 0, speed = 0;
 
-        public BaseCustomItem Stats(int maxHealth = 0, int attack = 0, int armor = 0, int speed = 0)
+        //these are required
+        private Sprite sprite, goldenSprite, diamondSprite;
+        private List<ItemTag> itemTags;
+        private ContentBundle contentBundle;
+        private ItemRarity itemRarity;
+        private ItemType itemType;
+        private string effectName, nameTag, effectDesc;
+
+        public EffectBuilder Stats(int maxHealth = 0, int attack = 0, int armor = 0, int speed = 0)
         {
             this.maxHealth = maxHealth;
             this.attack = attack;
             this.armor = armor;
             this.speed = speed;
-            
+
             return this;
         }
 
-        public BaseCustomItem Sprite(string normal, string golden = null, string diamond = null)
+        public EffectBuilder Sprite(string normal, string golden = null, string diamond = null)
         {
             this.sprite = SpriteRegistry.sprites[normal];
 
@@ -28,7 +38,7 @@ namespace CustomItems.Items
             return Sprite(this.sprite, this.goldenSprite, this.diamondSprite);
         }
 
-        public BaseCustomItem Sprite(Sprite normal, Sprite golden = null, Sprite diamond = null)
+        public EffectBuilder Sprite(Sprite normal, Sprite golden = null, Sprite diamond = null)
         {
             this.sprite = normal;
 
@@ -53,45 +63,55 @@ namespace CustomItems.Items
             return this;
         }
 
-        public BaseCustomItem GoldTint(int r, int g, int b)
+        public EffectBuilder GoldTint(int r, int g, int b)
         {
             this.goldenSprite = this.goldenSprite.AddColor(r, g, b);
             return this;
         }
 
-        public BaseCustomItem DiamondTint(int r, int g, int b)
+        public EffectBuilder DiamondTint(int r, int g, int b)
         {
             this.diamondSprite = this.diamondSprite.AddColor(r, g, b);
             return this;
         }
 
-        public BaseCustomItem Tags(params ItemTag[] tags)
-        { 
+        public EffectBuilder Tags(params ItemTag[] tags)
+        {
             this.itemTags = tags.ToList();
-            return this; 
+            return this;
         }
 
-        public BaseCustomItem Define(ContentBundle contentBundle, ItemRarity rarirty, ItemType type) 
-        { 
+        public EffectBuilder Define(ContentBundle contentBundle, ItemRarity rarirty, ItemType type)
+        {
             this.contentBundle = contentBundle;
             this.itemRarity = rarirty;
             this.itemType = type;
-            return this; 
+            return this;
         }
 
-        public BaseCustomItem Identify(string tag, string name, string desc) {
+        public EffectBuilder Identify(string tag, string name, string desc)
+        {
             this.effectName = name;
             this.nameTag = tag;
             this.effectDesc = desc;
             return this;
         }
 
-        public virtual void Register() {
-            var registry = ItemRegistry.Instance;
-            if (registry.IsEnabled(nameTag))
+        public void BuildOn(EffectBase effect)
+        {
+            effect.maxHealth = this.maxHealth;
+            effect.attack = this.attack;
+            effect.armor = this.armor;
+            effect.speed = this.speed;
+
+            effect.sprite = this.sprite;
+            if (effect is InventoryItem item)
             {
-                registry[nameTag] = this;
+                item.goldenSprite = this.goldenSprite;
+                item.diamondSprite= this.diamondSprite;
             }
+
+
         }
     }
 }

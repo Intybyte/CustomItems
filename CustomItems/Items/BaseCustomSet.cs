@@ -1,18 +1,24 @@
-﻿using System.Linq;
+﻿using CustomItems.Registry;
+using System.Linq;
 
 namespace CustomItems.Items
 {
-    /// <summary>
-    /// A class used to group multimple items, like cauldron recipes
-    /// and sets.
-    /// </summary>
-    public class BaseCustomGroup : BaseCustomItem
+    public class BaseCustomSet : SetBase
     {
-        public BaseCustomGroup Ingredients(params InventoryItem[] ingredients)
+        public BaseCustomSet Ingredients(params InventoryItem[] ingredients)
         { 
             this.itemComponents = ingredients.ToList();
 
             return this;
+        }
+
+        public void Register() 
+        {
+            var registry = ItemRegistry.Instance;
+            if (registry.IsEnabled(nameTag))
+            {
+                registry.addedSets[nameTag] = this;
+            }
         }
     }
 }

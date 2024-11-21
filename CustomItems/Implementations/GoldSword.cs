@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomItems.Items;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
