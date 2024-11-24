@@ -81,7 +81,7 @@ namespace CustomItems.Items
             return this;
         }
 
-        public EffectBuilder Define(ContentBundle contentBundle, ItemRarity rarirty, ItemType type)
+        public EffectBuilder Define(ContentBundle contentBundle, ItemRarity rarirty = ItemRarity.UNAVAILABLE, ItemType type = ItemType.NONE)
         {
             this.contentBundle = contentBundle;
             this.itemRarity = rarirty;
@@ -105,13 +105,21 @@ namespace CustomItems.Items
             effect.speed = this.speed;
 
             effect.sprite = this.sprite;
+            effect.contentBundle = this.contentBundle;
             if (effect is InventoryItem item)
             {
                 item.goldenSprite = this.goldenSprite;
-                item.diamondSprite= this.diamondSprite;
+                item.diamondSprite = this.diamondSprite;
+
+                item.itemRarity = this.itemRarity;
+                item.itemType = this.itemType;
+
+                item.itemTags = this.itemTags;
             }
 
-
+            effect.effectName = this.effectName;
+            effect.nameTag = this.nameTag;
+            effect.effectDesc = this.effectDesc;            
         }
     }
 }
