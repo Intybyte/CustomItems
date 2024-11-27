@@ -1,7 +1,7 @@
 ﻿using CustomItems.Registry;
 using UnityEngine;
 
-namespace CustomItems
+namespace CustomItems.Utils
 {
     public static class SpriteUtil
     {

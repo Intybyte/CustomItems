@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using CustomItems.Implementations;
 using CustomItems.Items;
+using CustomItems.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,20 +77,30 @@ namespace CustomItems.Registry
         public void Init()
         {
 
-            ScriptableObject.CreateInstance<GlassShield>()
+            var glassShieldEffects = new EffectBuilder()
                 .Identify("glass_shield", "Glass Shield", "When hit deal the same damage to your enemy. Works only on first turn.")
-                .Define(ContentBundle.WOODLAND, ItemRarity.COMMON, ItemType.INVENTORY)
-                .Tags(ItemTag.STONE)
-                .Sprite("Glass Shield")
-                .Register();
+                .ContentBundle(ContentBundle.WOODLAND)
+                .Sprite("Glass Shield");
 
-            ScriptableObject.CreateInstance<GoldSword>()
+            var glassShield = ScriptableObject.CreateInstance<GlassShield>()
+                .DefineKind(ItemRarity.COMMON, ItemType.WEAPON)
+                .Tags(ItemTag.STONE);
+
+            glassShieldEffects.BuildOn(glassShield);
+            glassShield.Register();
+
+            var goldSwordEffects = new EffectBuilder()
                 .Identify("gold_sword", "Gold Sword", "Deals 1 damage for each 10 gold owned.")
-                .Define(ContentBundle.WOODLAND, ItemRarity.HEROIC, ItemType.WEAPON)
-                .Tags(ItemTag.UNIQUE)
+                .ContentBundle(ContentBundle.WOODLAND)
                 .Stats(0, 1)
-                .Sprite("Golden Sword")
-                .Register();
+                .Sprite("Golden Sword");
+
+            var goldSword = ScriptableObject.CreateInstance<GoldSword>()
+                .DefineKind(ItemRarity.HEROIC, ItemType.WEAPON)
+                .Tags(ItemTag.UNIQUE);
+            
+            goldSwordEffects.BuildOn(goldSword);
+            goldSword.Register();
 
             OnCustomItemRegistryInit?.Invoke();
         }

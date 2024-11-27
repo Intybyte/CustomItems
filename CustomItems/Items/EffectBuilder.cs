@@ -1,6 +1,5 @@
 ﻿using CustomItems.Registry;
-using System.Collections.Generic;
-using System.Linq;
+using CustomItems.Utils;
 using UnityEngine;
 
 namespace CustomItems.Items
@@ -11,10 +10,7 @@ namespace CustomItems.Items
 
         //these are required
         private Sprite sprite, goldenSprite, diamondSprite;
-        private List<ItemTag> itemTags;
         private ContentBundle contentBundle;
-        private ItemRarity itemRarity;
-        private ItemType itemType;
         private string effectName, nameTag, effectDesc;
 
         public EffectBuilder Stats(int maxHealth = 0, int attack = 0, int armor = 0, int speed = 0)
@@ -24,6 +20,12 @@ namespace CustomItems.Items
             this.armor = armor;
             this.speed = speed;
 
+            return this;
+        }
+
+        public EffectBuilder ContentBundle(ContentBundle contentBundle)
+        {
+            this.contentBundle = contentBundle;
             return this;
         }
 
@@ -75,20 +77,6 @@ namespace CustomItems.Items
             return this;
         }
 
-        public EffectBuilder Tags(params ItemTag[] tags)
-        {
-            this.itemTags = tags.ToList();
-            return this;
-        }
-
-        public EffectBuilder Define(ContentBundle contentBundle, ItemRarity rarirty = ItemRarity.UNAVAILABLE, ItemType type = ItemType.NONE)
-        {
-            this.contentBundle = contentBundle;
-            this.itemRarity = rarirty;
-            this.itemType = type;
-            return this;
-        }
-
         public EffectBuilder Identify(string tag, string name, string desc)
         {
             this.effectName = name;
@@ -110,11 +98,6 @@ namespace CustomItems.Items
             {
                 item.goldenSprite = this.goldenSprite;
                 item.diamondSprite = this.diamondSprite;
-
-                item.itemRarity = this.itemRarity;
-                item.itemType = this.itemType;
-
-                item.itemTags = this.itemTags;
             }
 
             effect.effectName = this.effectName;

@@ -69,7 +69,8 @@
     <Compile Include="Patches\ItemManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registry\SpriteRegistry.cs" />
-    <Compile Include="SpriteUtil.cs" />
+    <Compile Include="Utils\InventoryItemUtils.cs" />
+    <Compile Include="Utils\SpriteUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Sprites\Golden Sword.png" />
