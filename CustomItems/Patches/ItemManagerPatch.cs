@@ -12,15 +12,17 @@ namespace CustomItems
     {
         public static ItemManager itemManager;
 
-        public static void Postfix(ItemManager __instance)
+        public static void Postfix(
+            ItemManager __instance, 
+            List<InventoryItem> ___workingItems,
+            List<SetBase> ___workingSets)
         {
             Debug.Log("Init start");
             itemManager = __instance;
             var registry = ItemRegistry.Instance;
             registry.Init();
 
-            var items = GetItems();
-            foreach (InventoryItem item in items) 
+            foreach (InventoryItem item in ___workingItems) 
             {
                 /* no way in hell am saving them as item_543 that is useless
                    if some devs ends up reading this PLEASE, consider using an hashmap
@@ -42,48 +44,10 @@ namespace CustomItems
                     Debug.LogError($"KEY COLLISION FOR {savedKey}: {item.nameTag} - {registry.existingItems[savedKey].nameTag}");
                 }
                 registry.existingItems[savedKey] = item;
-                //Debug.Log($"Read tag {item.nameTag} : Display {item.effectName} : Saved as {savedKey}");
+                Debug.Log($"Read tag {item.nameTag} : Display {item.effectName} : Saved as {savedKey}");
             }
-            items.AddRange(registry.addedItems.Values);
-            SetItems(items);
-        }
-
-        public static List<InventoryItem> GetItems()
-        {
-            if (itemManager == null)
-            {
-                throw new System.Exception("Cannot execute ItemManagerPatch#GetItems() yet");
-            }
-
-            FieldInfo itemsField = typeof(ItemManager).GetField("workingItems", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (itemsField == null)
-            {
-                throw new System.Exception("Getting items field of ItemManager returns null");
-            }
-
-            List<InventoryItem> items = (List<InventoryItem>) itemsField.GetValue(itemManager);
-            if (items == null)
-            {
-                throw new System.Exception("Getting items of ItemManager field returns null");
-            }
-
-            return items;
-        }
-
-        public static void SetItems(List<InventoryItem> list)
-        {
-            if (itemManager == null)
-            {
-                throw new System.Exception("Cannot execute ItemManagerPatch#GetItems() yet");
-            }
-
-            FieldInfo itemsField = typeof(ItemManager).GetField("workingItems", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (itemsField == null)
-            {
-                throw new System.Exception("Getting items field of ItemManager returns null");
-            }
-
-            itemsField.SetValue(itemManager, list);
+            ___workingItems.AddRange(registry.addedItems.Values);
+            ___workingSets.AddRange(registry.addedSets.Values);
         }
     }
 }
