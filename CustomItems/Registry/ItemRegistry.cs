@@ -102,6 +102,18 @@ namespace CustomItems.Registry
             goldSwordEffects.BuildOn(goldSword);
             goldSword.Register();
 
+            var sanguineSwordEffects = new EffectBuilder()
+                .Identify("sanguine_sword", "Sanguine Sword Set", "Let blood strengthens you.")
+                .ContentBundle(ContentBundle.WOODLAND)
+                .Stats(10, 1);
+
+            var sanguineSword = ScriptableObject.CreateInstance<BaseCustomSet>()
+                .DefineKind(ItemRarity.UNOBTAINABLE, ItemType.SET)
+                .Ingredients(existingItems["bleeding_edge"], existingItems["heart_drinker"], existingItems["lifeblood_burst"]);
+
+            sanguineSwordEffects.BuildOn(sanguineSword);
+            sanguineSword.Register();
+
             OnCustomItemRegistryInit?.Invoke();
         }
 
