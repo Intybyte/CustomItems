@@ -12,8 +12,17 @@ Glass Shield :
     Having multiple won't retrigger the effect, just combine them.
 
 Gold Sword:
-   Deals 1 damage for each 10 gold owned.
-   Hero rarity
+    Deals 1 damage for each 10 gold owned.
+    Hero rarity
+```
+
+Sets added so far:
+
+```yaml
+Sanguine Sword:
+    Components: "bleeding_edge", "heart_drinker", "lifeblood_burst"
+    Gives +10 MAX HP and +1 ATK
+
 ```
 
 ## Thanks to:

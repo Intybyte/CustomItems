@@ -78,5 +78,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Sprites\Glass Shield.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sprites\Sanguine Sword.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
