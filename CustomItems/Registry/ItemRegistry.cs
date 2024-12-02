@@ -115,17 +115,17 @@ namespace CustomItems.Registry
             sanguineSwordEffects.BuildOn(sanguineSword);
             sanguineSword.Register();
 
-            var golemEffects = new EffectBuilder()
-                .Identify("golem_set", "Golem", "Your skin is turning to stone...")
+            var stoneSkinEffects = new EffectBuilder()
+                .Identify("stone_skin", "Stone Skin", "Your skin is turning to stone...")
                 .ContentBundle(ContentBundle.WOODLAND)
                 .Stats(0, 0, 8, -2);
 
-            var golem = ScriptableObject.CreateInstance<BaseCustomSet>()
+            var stoneSkin = ScriptableObject.CreateInstance<BaseCustomSet>()
                 .DefineKind(ItemRarity.UNAVAILABLE, ItemType.SET)
                 .Ingredients(existingItems["marble_mirror"], existingItems["stone_steak"], existingItems["ironstone_sandals"]);
 
-            golemEffects.BuildOn(golem);
-            golem.Register();
+            stoneSkinEffects.BuildOn(stoneSkin);
+            stoneSkin.Register();
 
             OnCustomItemRegistryInit?.Invoke();
         }
