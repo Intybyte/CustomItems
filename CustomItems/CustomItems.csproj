@@ -81,5 +81,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Sprites\Sanguine Sword.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sprites\Stone Skin.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -118,7 +118,8 @@ namespace CustomItems.Registry
             var stoneSkinEffects = new EffectBuilder()
                 .Identify("stone_skin", "Stone Skin", "Your skin is turning to stone...")
                 .ContentBundle(ContentBundle.WOODLAND)
-                .Stats(0, 0, 8, -2);
+                .Stats(0, 0, 8, -2)
+                .Sprite("Stone Skin");
 
             var stoneSkin = ScriptableObject.CreateInstance<BaseCustomSet>()
                 .DefineKind(ItemRarity.UNAVAILABLE, ItemType.SET)
