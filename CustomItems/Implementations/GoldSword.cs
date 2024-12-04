@@ -11,7 +11,7 @@ namespace CustomItems.Implementations
         public override void TriggerEffect(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem)
         {
             int gold = StatsManager.Instance.playerGold;
-            int bonusAtk = gold / 10;
+            int bonusAtk = gold / 15;
             if(bonusAtk == 0) return;
             battleSystem.EnqueueEffect(battleSystem.CO_DamageTrigger(HicGeneric.GetOppositeTurn(this.player), bonusAtk, DamageSource.ATTACK, this.sprite, this));
         }

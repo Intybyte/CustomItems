@@ -12,7 +12,7 @@ Glass Shield :
     Having multiple won't retrigger the effect, just combine them.
 
 Gold Sword:
-    Deals 1 damage for each 10 gold owned.
+    Deals 1 damage for each 15 gold owned.
     Hero rarity
 ```
 
