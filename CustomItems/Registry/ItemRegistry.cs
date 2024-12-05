@@ -122,11 +122,22 @@ namespace CustomItems.Registry
                 .Sprite("Stone Skin");
 
             var stoneSkin = ScriptableObject.CreateInstance<BaseCustomSet>()
-                .DefineKind(ItemRarity.UNAVAILABLE, ItemType.SET)
+                .DefineKind(ItemRarity.UNOBTAINABLE, ItemType.SET)
                 .Ingredients(existingItems["marble_mirror"], existingItems["stone_steak"], existingItems["ironstone_sandals"]);
 
             stoneSkinEffects.BuildOn(stoneSkin);
             stoneSkin.Register();
+
+            var goldWarriorEffects = new EffectBuilder()
+                .ContentBundle(ContentBundle.WOODLAND)
+                .Identify("gold_warrior", "Gold Warrior", "Your gold is as important as your life at this point. If you receive a deadly hit you will lose gold instead of dying if possible.");
+
+            var goldWarrior = ScriptableObject.CreateInstance<BaseCustomSet>()
+                .DefineKind(ItemRarity.UNOBTAINABLE, ItemType.SET)
+                .Ingredients(addedItems["gold_sword"], existingItems["gold_ring"], existingItems["boss_contract"]);
+
+            goldWarriorEffects.BuildOn(goldWarrior);
+            goldWarrior.Register();
 
             OnCustomItemRegistryInit?.Invoke();
         }
