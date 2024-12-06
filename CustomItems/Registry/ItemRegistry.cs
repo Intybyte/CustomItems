@@ -132,7 +132,7 @@ namespace CustomItems.Registry
                 .ContentBundle(ContentBundle.WOODLAND)
                 .Identify("gold_warrior", "Gold Warrior", "Your gold is as important as your life at this point. If you receive a deadly hit you will lose gold instead of dying if possible.");
 
-            var goldWarrior = ScriptableObject.CreateInstance<BaseCustomSet>()
+            var goldWarrior = ScriptableObject.CreateInstance<GoldWarrior>()
                 .DefineKind(ItemRarity.UNOBTAINABLE, ItemType.SET)
                 .Ingredients(addedItems["gold_sword"], existingItems["gold_ring"], existingItems["boss_contract"]);
 

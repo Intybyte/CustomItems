@@ -35,12 +35,12 @@ namespace CustomItems.Implementations
         public override void TriggerOnStartOfBattle(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem, List<InventoryItem> equippedItems, List<EffectBase> allEquippedEffects, BattleTurn turn)
         {
             active = true;
-            battleSystem.battleEvents.Subscribe("TakeDamage", new BattleEvents.EventAction(this.TakeDamage), this, turn, false);
+            battleSystem.battleEvents.Subscribe(EventTypes.TakeDamage, new BattleEvents.EventAction(this.TakeDamage), this, turn, false);
         }
 
         public override void TriggerOnEndOfBattle(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem, List<InventoryItem> equippedItems, List<EffectBase> allEquippedEffects, BattleTurn turn)
         {
-            battleSystem.battleEvents.Unsubscribe("TakeDamage", new BattleEvents.EventAction(this.TakeDamage), this, turn, false);
+            battleSystem.battleEvents.Unsubscribe(EventTypes.TakeDamage, new BattleEvents.EventAction(this.TakeDamage), this, turn, false);
         }
 
         public override void SetGoldenItem(InventoryItem item)

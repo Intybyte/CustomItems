@@ -1,7 +1,6 @@
 ﻿using CustomItems.Items;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace CustomItems.Implementations
 {
@@ -24,12 +23,12 @@ namespace CustomItems.Implementations
 
         public override void TriggerOnStartOfBattle(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem, List<InventoryItem> equippedItems, List<EffectBase> allEquippedEffects, BattleTurn turn)
         {
-            battleSystem.battleEvents.Subscribe("OnHit", new BattleEvents.EventAction(this.OnHit), this, turn, false);
+            battleSystem.battleEvents.Subscribe(EventTypes.OnHit, new BattleEvents.EventAction(this.OnHit), this, turn, false);
         }
 
         public override void TriggerOnEndOfBattle(Dictionary<BattleTurn, BattleStats> battleStats, BattleSystem battleSystem, List<InventoryItem> equippedItems, List<EffectBase> allEquippedEffects, BattleTurn turn)
         {
-            battleSystem.battleEvents.Unsubscribe("OnHit", new BattleEvents.EventAction(this.OnHit), this, turn, false);
+            battleSystem.battleEvents.Unsubscribe(EventTypes.OnHit, new BattleEvents.EventAction(this.OnHit), this, turn, false);
         }
     }
 }

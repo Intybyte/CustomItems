@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Implementations\GlassShield.cs" />
     <Compile Include="Implementations\GoldSword.cs" />
+    <Compile Include="Implementations\GoldWarrior.cs" />
     <Compile Include="Items\BaseCustomItem.cs" />
     <Compile Include="Items\BaseCustomSet.cs" />
     <Compile Include="Items\EffectBuilder.cs" />
