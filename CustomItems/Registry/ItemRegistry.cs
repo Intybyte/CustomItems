@@ -83,7 +83,7 @@ namespace CustomItems.Registry
                 .Sprite("Glass Shield");
 
             var glassShield = ScriptableObject.CreateInstance<GlassShield>()
-                .DefineKind(ItemRarity.COMMON, ItemType.WEAPON)
+                .DefineKind(ItemRarity.COMMON, ItemType.INVENTORY)
                 .Tags(ItemTag.STONE);
 
             glassShieldEffects.BuildOn(glassShield);

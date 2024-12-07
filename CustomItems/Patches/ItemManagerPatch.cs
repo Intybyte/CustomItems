@@ -14,7 +14,8 @@ namespace CustomItems
         public static void Postfix(
             ItemManager __instance, 
             List<InventoryItem> ___workingItems,
-            List<SetBase> ___workingSets)
+            List<SetBase> ___workingSets,
+            List<string> ___discoveredItemSets)
         {
             Debug.Log("Init start");
             itemManager = __instance;
@@ -48,6 +49,7 @@ namespace CustomItems
             registry.Init();
             ___workingItems.AddRange(registry.addedItems.Values);
             ___workingSets.AddRange(registry.addedSets.Values);
+            ___discoveredItemSets.AddRange(registry.addedSets.Keys);
         }
     }
 }
