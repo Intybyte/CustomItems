@@ -21,7 +21,17 @@ Sets added so far:
 ```yaml
 Sanguine Sword:
     Components: "bleeding_edge", "heart_drinker", "lifeblood_burst"
-    Gives +10 MAX HP and +1 ATK
+    Gives +10 MAX HP and +1 ATK.
+	
+Stone Skin:
+	Components: "marble_mirror", "stone_steak", "ironstone_sandals"
+	Gives +8 ARMOR and -2 SPEED.
+
+Gold Warrior:
+	Components: "gold_sword", "gold_ring", "boss_contract"
+	If the damage is lethal damage, lose coins instead, 
+	only if you don't have enough coins to tank the damage then
+	you will die.
 
 ```
 

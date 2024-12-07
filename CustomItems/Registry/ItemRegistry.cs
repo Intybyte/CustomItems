@@ -130,7 +130,8 @@ namespace CustomItems.Registry
 
             var goldWarriorEffects = new EffectBuilder()
                 .ContentBundle(ContentBundle.WOODLAND)
-                .Identify("gold_warrior", "Gold Warrior", "Your gold is as important as your life at this point. If you receive a deadly hit you will lose gold instead of dying if possible.");
+                .Identify("gold_warrior", "Gold Warrior", "Your gold is as important as your life at this point. If you receive a deadly hit you will lose gold instead of dying if possible.")
+                .Sprite("Gold Warrior");
 
             var goldWarrior = ScriptableObject.CreateInstance<GoldWarrior>()
                 .DefineKind(ItemRarity.UNOBTAINABLE, ItemType.SET)
