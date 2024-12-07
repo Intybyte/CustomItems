@@ -1,7 +1,6 @@
 ﻿using CustomItems.Registry;
 using HarmonyLib;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 namespace CustomItems
@@ -20,7 +19,6 @@ namespace CustomItems
             Debug.Log("Init start");
             itemManager = __instance;
             var registry = ItemRegistry.Instance;
-            registry.Init();
 
             foreach (InventoryItem item in ___workingItems) 
             {
@@ -46,6 +44,8 @@ namespace CustomItems
                 registry.existingItems[savedKey] = item;
                 Debug.Log($"Read tag {item.nameTag} : Display {item.effectName} : Saved as {savedKey}");
             }
+            
+            registry.Init();
             ___workingItems.AddRange(registry.addedItems.Values);
             ___workingSets.AddRange(registry.addedSets.Values);
         }
